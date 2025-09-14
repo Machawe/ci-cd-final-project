@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: counters-cd-run-
+spec:
+  pipelineRef:
+    name: counters-cd
+  serviceAccountName: pipeline
+  workspaces:
+    - name: output
+      persistentVolumeClaim:
+        claimName: oc-lab-pvc
+  params:
+    - name: repo-url
+      value: https://github.com/Machawe/ci-cd-final-project.git
+    - name: repo-revision
+      value: main
+    - name: app-name
+      value: counters-api
+    - name: build-image
+      value: image-registry.openshift-image-registry.svc:5000/<your-namespace>/counters-api:latest
+    - name: context-dir
+      value: .
