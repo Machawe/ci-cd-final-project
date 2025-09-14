@@ -28,5 +28,7 @@ jobs:
           flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Run unit tests with nose
+        env:
+          NOSE_IGNORE_CONFIG_FILES: "1"
         run: |
           nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
